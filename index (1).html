@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phishing Awareness Training</title>
+<style>
+:root{--bg:#f6f7f4;--card:#fff;--ink:#1b2430;--mute:#5b6572;--line:#d9ddd6;--acc:#0f766e;--bad:#b42318;--badbg:#fdecea;--ok:#1a7f4b;--okbg:#e6f4ec;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161d;--card:#18212b;--ink:#e8edf2;--mute:#a0abb7;--line:#2c3947;--acc:#4fd1c0;--bad:#ff8a7d;--badbg:#3a1e1c;--ok:#6fdc9c;--okbg:#17301f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10161d;--card:#18212b;--ink:#e8edf2;--mute:#a0abb7;--line:#2c3947;--acc:#4fd1c0;--bad:#ff8a7d;--badbg:#3a1e1c;--ok:#6fdc9c;--okbg:#17301f;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:680px;margin:0 auto;padding:24px 16px 48px}
+h1,h2{font-family:"Iowan Old Style",Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 8px}
+h1{font-size:1.9rem;color:#fff;background:linear-gradient(135deg,#0f766e,#1d4ed8);padding:20px 18px;border-radius:12px;margin-bottom:16px}
+p{margin:0 0 12px}
+.mute{color:var(--mute)}
+.bar{height:6px;background:var(--line);border-radius:3px;margin:0 0 20px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.top{display:flex;justify-content:space-between;font-size:.9rem;color:var(--mute);margin-bottom:6px}
+.mail{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.hd{padding:14px 16px;border-bottom:1px solid var(--line);font-size:.92rem}
+.hd div{margin:2px 0}
+.hd b{display:inline-block;min-width:4.2em;color:var(--mute);font-weight:500}
+.subj{font-weight:600;font-size:1.05rem;margin-top:6px}
+.body{padding:16px;white-space:pre-line}
+.link{display:block;margin:0 16px 16px;padding:10px 12px;border:1px dashed var(--line);border-radius:6px;font-size:.9rem;word-break:break-all}
+.link span{color:var(--acc);text-decoration:underline}
+.link small{display:block;color:var(--mute);margin-top:2px}
+.att{margin:0 16px 16px;padding:8px 12px;background:var(--bg);border-radius:6px;font-size:.9rem}
+.hot{outline:2px solid var(--bad);outline-offset:2px;border-radius:4px;background:var(--badbg)}
+.row{display:flex;gap:12px;margin:16px 0}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:12px 16px}
+.row button{flex:1;font-weight:600}
+button:hover{border-color:var(--acc)}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.primary{background:linear-gradient(135deg,#0f766e,#1d4ed8);border-color:transparent;color:#fff}
+.fb{border-radius:10px;padding:14px 16px;margin-top:16px}
+.fb.good{background:var(--okbg);border:1px solid var(--ok)}
+.fb.miss{background:var(--badbg);border:1px solid var(--bad)}
+.fb h2{font-size:1.15rem}
+.fb ul{margin:8px 0 12px;padding-left:20px}
+.tips li{margin-bottom:6px}
+.score{font-size:3rem;font-family:Georgia,serif;margin:8px 0}
+main>h2{border-left:5px solid var(--acc);padding-left:10px;margin-top:22px}
+main>h2:nth-of-type(2){border-color:var(--bad);color:var(--bad)}
+main>h2:nth-of-type(3){border-color:var(--ok);color:var(--ok)}
+.tips li::marker{color:var(--acc)}
+.row button[data-a="1"]{background:var(--badbg);border-color:var(--bad);color:var(--bad)}
+.row button[data-a="0"]{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.mail{border-top:5px solid var(--acc)}
+.score{color:var(--acc)}
+.bar i{background:linear-gradient(90deg,#0f766e,#1d4ed8)}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+var Q=[
+{from:"HBL Security",addr:"security@secure-hbl-alerts.com",subj:"Your account has been locked",body:"Dear Customer,\n\nUnusual activity was detected. Your account will be permanently closed in 24 hours unless you confirm your identity.",link:"Verify now",url:"http://hbl-secure-login.co/verify",phish:1,hot:["from","link","body"],why:["The sender’s domain is a lookalike, not the bank’s real domain.","Urgency and threats (“closed in 24 hours”) push you to act without thinking.","Generic greeting: a real bank uses your name.","The link leads to an unrelated address."]},
+{from:"University Library",addr:"library@university.edu",subj:"Book due Friday",body:"Hi Noor,\n\nThis is a reminder that one item is due this Friday. You can renew it from your library account.",link:"My library account",url:"https://library.university.edu/account",phish:0,hot:[],why:["The sender domain matches the institution.","No pressure, no threats, no request for passwords.","The link goes to a subdomain of the same trusted domain.","Safest habit: type the site address yourself instead of clicking."]},
+{from:"Ahmed (CEO)",addr:"ceo.office.ahmed@gmail.com",subj:"Quick favor, urgent",body:"Are you at your desk? I’m in a meeting and can’t talk. I need you to buy 5 gift cards for a client and send me the codes. I’ll reimburse you today. Keep this between us.",link:"",url:"",phish:1,hot:["from","body"],why:["A senior person writing from a free Gmail address is a classic impersonation.","Gift cards and secrecy are major red flags.","Verify by calling the person on a known number."]},
+{from:"Courier Update",addr:"track@parcel-notice.info",subj:"Package on hold: fee required",body:"We couldn’t deliver your parcel. Pay a small redelivery fee of Rs 50 to release it today.",link:"Pay redelivery fee",url:"http://bit.ly/3xPkQ9",phish:1,hot:["from","link"],why:["You weren’t told which company or tracking number.","Shortened links hide the real destination.","Small fees are used to steal card details."]},
+{from:"Google",addr:"no-reply@accounts.google.com",subj:"Password reset requested",body:"You asked to reset your password. Use the link below within 1 hour. If you didn’t request this, ignore this email.",link:"Reset password",url:"https://accounts.google.com/signin/recovery",phish:0,hot:[],why:["Legitimate domain, and the link matches it.","You can confirm you actually requested the reset.","If you didn’t request it, don’t click. Change your password from the official site instead."]},
+{from:"Accounts Payable",addr:"billing@supplier-payments.net",subj:"Invoice #4471 overdue",body:"Please find the attached invoice. Payment is overdue. Open the attachment and confirm bank details today.",link:"",url:"",att:"Invoice_4471.pdf.exe",phish:1,hot:["att","body"],why:["“.pdf.exe” is a program disguised as a PDF.","Unexpected invoices with pressure to act are common bait.","Never open unexpected attachments. Check with the supplier directly."]},
+{from:"IT Helpdesk",addr:"helpdesk@office-365-renew.ru",subj:"Password expires today",body:"Your Microsoft 365 password expires today. Keep your access by renewing at the link below.",link:"https://office.com/renew",url:"http://office-365.renew-login.ru/",phish:1,hot:["from","link"],why:["The text of the link says one thing, but the real address is different.","Suspicious sender domain (.ru) unrelated to Microsoft or your organisation.","Hover or long-press links to see the real destination before clicking."]},
+{from:"Survey Rewards",addr:"winner@free-prize-draw.xyz",subj:"You’ve won a new iPhone!",body:"Congratulations! Complete this 1-minute survey and enter your card details for shipping to claim your prize.",link:"Claim prize",url:"http://free-prize-draw.xyz/claim",phish:1,hot:["from","body","link"],why:["You can’t win a contest you never entered.","Prizes never require card details.","Odd domain endings like .xyz are common in scams."]},
+{from:"BANK ALERT",addr:"+92 300 5550142 (SMS)",subj:"Text message",body:"Your card has been blocked due to suspicious activity. Tap the link within 2 hours to unblock it.",link:"Unblock card",url:"http://card-unblock.top/id",phish:1,hot:["from","body","link"],why:["Text messages can be spoofed, and a random mobile number is not how banks warn customers.","An urgent deadline and a link to ‘fix’ the problem.","Banks don’t ask for card details through links. Call the number on the back of your card."]},
+{from:"Caller (phone call)",addr:"Caller ID: Bank Helpline",subj:"Incoming call, 2 minutes",body:"“This is the fraud department. We’ve stopped a transfer from your account. To cancel it, please read me the code we just sent to your phone.”",link:"",url:"",phish:1,hot:["body"],why:["Caller ID can be faked, so it proves nothing.","The one-time code (OTP) is the key to your account. No real employee will ask for it.","Hang up and call the official number yourself."]},
+{from:"City Parking Notice",addr:"printed note on car windshield",subj:"Unpaid parking fine",body:"Pay your fine of Rs 1,500 within 24 hours to avoid a penalty. Scan the QR code to pay.",link:"",url:"",att:"QR code: scan to pay (opens park-pay.top)",phish:1,hot:["att","body"],why:["Scammers stick fake notices and QR codes on real places.","A QR code hides the destination until you open it.","Check any fine through the official authority’s website or app."]},
+{from:"Shared Documents",addr:"share@docs-notification.net",subj:"Salary_Update_2026 shared with you",body:"A document was shared with you. Sign in with your work account to view it.",link:"Open document",url:"https://login.microsoftonline.com.secure-verify.net/signin",phish:1,hot:["from","link"],why:["Read web addresses from right to left: the real domain is secure-verify.net, not microsoftonline.com.","A tempting subject (salary) and an unexpected share.","Fake sign-in pages steal passwords. Open the document from your official app instead."]},
+{from:"MyBank",addr:"+92 300 5550100 (SMS, saved contact)",subj:"Text message",body:"Your one-time code is 482913. Use it to confirm your login. It expires in 5 minutes. Never share this code with anyone.",link:"",url:"",phish:0,hot:[],why:["There is no link and no request to act, and it warns you not to share the code.","This is only legitimate if you just tried to log in yourself.","If you didn’t, change your password and contact the bank."]}
+];
+var TECH=["T1566.002 Spearphishing Link","","T1656 Impersonation (CEO fraud)","T1566.002 Spearphishing Link","","T1566.001 Spearphishing Attachment, T1036.007 Double File Extension","T1566.002 Spearphishing Link","T1566.002 Spearphishing Link","T1660 Phishing (mobile)","T1566.004 Spearphishing Voice","T1566.002 Spearphishing Link (via QR code)","T1566.002 Spearphishing Link (credential harvesting)",""];
+var app=document.getElementById("app"),i=0,score=0,missed=[];
+function learn(){
+app.innerHTML='<h1>Phishing awareness training</h1><p>Phishing is when an attacker pretends to be someone you trust, such as a bank, your boss or a delivery company, to trick you into giving away passwords, money or access, or into installing malware. Most attacks succeed because a person is persuaded to act, not because of a technical hack, so awareness is one of the best defences.</p>'+
+'<h2>Common types</h2><ul class="tips"><li><b>Email phishing:</b> mass emails with fake links or attachments.</li><li><b>Spear phishing and CEO fraud:</b> targeted messages that impersonate someone you know.</li><li><b>Smishing:</b> phishing by SMS or messaging apps.</li><li><b>Vishing:</b> phone calls from fake banks or support staff.</li><li><b>QR code phishing:</b> codes that lead to malicious sites.</li><li><b>Fake login pages:</b> look-alike sites that capture your password.</li></ul>'+
+'<h2>Red flags to look for</h2><ul class="tips"><li>A sender address that doesn’t match the organisation.</li><li>Urgency, threats or surprise prizes.</li><li>Links whose real address differs from the text shown.</li><li>Unexpected attachments, especially .exe files or double extensions like .pdf.exe.</li><li>Requests for passwords, one-time codes, card details or gift cards.</li><li>Generic greetings and strange wording.</li></ul>'+
+'<h2>What to do</h2><ul class="tips"><li><b>Pause</b> and check the sender and the real link before clicking.</li><li><b>Go direct:</b> open the official website or call a number you already trust.</li><li><b>Report</b> the message to your IT team or provider, then delete it.</li><li><b>If you already clicked:</b> change your password, turn on multi-factor authentication, and tell your IT team or bank straight away.</li></ul>'+
+'<p class="mute">Now test yourself. After each answer, red outlines show you the clues you could have spotted.</p><button class="primary" id="tq">Take the quiz ('+Q.length+' scenarios)</button>';
+document.getElementById("tq").onclick=function(){i=0;score=0;missed=[];show()}}
+function start(){i=0;score=0;missed=[];
+app.innerHTML='<h1>Phishing awareness training</h1><p class="mute">You’ll see '+Q.length+' messages (emails, texts, a call, and a QR code). For each one, decide if it is phishing or legitimate, then learn what gave it away. Takes about 5 minutes.</p><button class="primary" id="go">Start training</button>';
+document.getElementById("go").onclick=show}
+function show(){var q=Q[i];
+app.innerHTML='<div class="top"><span>Item '+(i+1)+' of '+Q.length+'</span><span>Score: '+score+'</span></div><div class="bar"><i style="width:'+(i/Q.length*100)+'%"></i></div>'+
+'<div class="mail"><div class="hd"><div id="f-from"><b>From</b>'+q.from+' &lt;'+q.addr+'&gt;</div><div class="subj">'+q.subj+'</div></div><div class="body" id="f-body">'+q.body+'</div>'+
+(q.link?'<div class="link" id="f-link"><span>'+q.link+'</span><small>Link preview: '+q.url+'</small></div>':'')+
+(q.att?'<div class="att" id="f-att">Attachment: '+q.att+'</div>':'')+'</div>'+
+'<div class="row" id="ans"><button data-a="1">Phishing</button><button data-a="0">Legitimate</button></div><div id="out"></div>';
+[].forEach.call(document.querySelectorAll("#ans button"),function(b){b.onclick=function(){answer(+b.dataset.a)}})}
+function answer(a){var q=Q[i],ok=a===q.phish;
+if(ok)score++;else missed.push(i);
+document.getElementById("ans").style.display="none";
+q.hot.forEach(function(k){var e=document.getElementById("f-"+k);if(e)e.classList.add("hot")});
+var h='<div class="fb '+(ok?"good":"miss")+'"><h2>'+(ok?"Correct":"Not quite")+': this email is '+(q.phish?"phishing":"legitimate")+'.</h2><ul>';
+q.why.forEach(function(w){h+="<li>"+w+"</li>"});
+h+='</ul>'+(q.phish&&TECH[i]?'<p class="mute">MITRE ATT&amp;CK: '+TECH[i]+'</p>':'')+'<button class="primary" id="nx">'+(i<Q.length-1?"Next item":"See results")+'</button></div>';
+document.getElementById("out").innerHTML=h;
+var n=document.getElementById("nx");n.focus();n.onclick=function(){i++;i<Q.length?show():end()}}
+function end(){var p=Math.round(score/Q.length*100),m=p>=88?"Sharp eyes. You spot most attacks.":p>=63?"Good start. Review the tips below.":"Worth another run. Practise the checks below.";
+app.innerHTML='<div class="bar"><i style="width:100%"></i></div><h1>Results</h1><div class="score">'+score+' / '+Q.length+'</div><p>'+m+'</p>'+
+'<h2>Your checklist</h2><ul class="tips"><li><b>Check the sender address</b>, not just the display name.</li><li><b>Preview links</b> before clicking; the visible text can lie.</li><li><b>Watch for pressure</b>: deadlines, threats, secrecy, prizes.</li><li><b>Never open unexpected attachments</b>, especially double extensions.</li><li><b>Go direct</b>: open the official site or call a known number.</li><li><b>Never share OTPs</b> and don’t scan QR codes from unknown sources.</li><li><b>Report it</b> to your IT team or provider, then delete it.</li></ul>'+
+'<button class="primary" id="re">Try again</button>';
+document.getElementById("re").onclick=start}
+learn();
+</script>
+</body>
+</html>
